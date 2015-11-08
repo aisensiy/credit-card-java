@@ -52,4 +52,11 @@ public class ConsumersApiTest extends ApiTestBase {
         assertThat(map.get("creditLine"), is(consumer.getCreditLine()));
         assertThat(map.get("name"), is(consumer.getName()));
     }
+
+    @Test
+    public void should_404_if_consumer_not_found() throws Exception {
+        when(consumerRepository.findConsumerById(1)).thenReturn(null);
+        final Response response = target("/consumers/1").request().get();
+        assertThat(response.getStatus(), is(404));
+    }
 }

@@ -1,5 +1,6 @@
 package com.tw.api;
 
+import com.tw.api.exception.NotFoundException;
 import com.tw.api.util.Routing;
 import com.tw.domain.Consumer;
 import com.tw.domain.ConsumerRepository;
@@ -28,6 +29,9 @@ public class ConsumersApi {
     public ConsumerApi getConsumer(@PathParam("consumerId") int consumerId,
                                    @Context ConsumerRepository consumerRepository) {
         Consumer consumer = consumerRepository.findConsumerById(consumerId);
+        if (consumer == null) {
+            throw new NotFoundException();
+        }
         return new ConsumerApi(consumer);
     }
 }
