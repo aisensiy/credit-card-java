@@ -27,4 +27,12 @@ public class ConsumersApiTest extends ApiTestBase {
         assertThat(response.getStatus(), is(201));
         assertThat(response.getHeaderString("Location"), endsWith(Routing.consumer(consumer).toString()));
     }
+
+    @Test
+    public void should_return_400_if_repository_failed_to_create_consumer() throws Exception {
+        final Form form = new Form();
+        when(consumerRepository.createConsumer(eq(form.asMap()))).thenReturn(null);
+        final Response response = target("/consumers").request().post(Entity.form(form));
+        assertThat(response.getStatus(), is(400));
+    }
 }
