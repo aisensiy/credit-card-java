@@ -14,10 +14,12 @@ import java.util.Map;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ConsumersApiTest extends ApiTestBase {
+public class ConsumerApiTest extends ApiTestBase {
     @Test
     public void should_create_consumer() throws Exception {
         final Form form = new Form();
@@ -58,5 +60,14 @@ public class ConsumersApiTest extends ApiTestBase {
         when(consumerRepository.findConsumerById(1)).thenReturn(null);
         final Response response = target("/consumers/1").request().get();
         assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    public void shoulld_update_user_info() throws Exception {
+        Consumer consumer = TestHelper.consumer(1, "name");
+        when(consumerRepository.findConsumerById(1)).thenReturn(consumer);
+        final Response response = target("/consumers/1").request().put(Entity.form(new Form()));
+        assertThat(response.getStatus(), is(204));
+        verify(consumerRepository).updateConsumer(eq(1), anyObject());
     }
 }
