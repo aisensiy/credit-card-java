@@ -6,6 +6,7 @@ import com.tw.domain.ConsumerRepository;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
@@ -21,5 +22,12 @@ public class ConsumersApi {
         } else {
             return Response.status(400).build();
         }
+    }
+
+    @Path("{consumerId}")
+    public ConsumerApi getConsumer(@PathParam("consumerId") int consumerId,
+                                   @Context ConsumerRepository consumerRepository) {
+        Consumer consumer = consumerRepository.findConsumerById(consumerId);
+        return new ConsumerApi(consumer);
     }
 }
