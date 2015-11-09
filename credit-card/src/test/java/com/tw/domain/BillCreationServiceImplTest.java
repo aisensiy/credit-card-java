@@ -42,7 +42,7 @@ public class BillCreationServiceImplTest {
         final Timestamp today = new Timestamp(1447570035904L); // 2015-11-15
         Bill expected = new Bill(today, consumer);
         Date from = addDay(1, addMonth(-1, new Date(today.getTime())));
-        Date to = expected.getBillDate();
+        Date to = expected.getBillDay();
         final List<PaymentRequest> paymentRequests = asList(
                 TestHelper.paymentRequest(1, 100, consumer),
                 TestHelper.paymentRequest(2, 100, consumer)
@@ -50,13 +50,13 @@ public class BillCreationServiceImplTest {
         when(paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(eq(from), eq(to), consumer)).thenReturn(paymentRequests);
 
         List<InstalmentItem> instalmentItems = asList(
-                new InstalmentItem(100, 3, expected.getRepaymentDate(), null)
+                new InstalmentItem(100, 3, expected.getRepaymentDay(), null)
         );
-        when(instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(eq(expected.getRepaymentDate()))).thenReturn(instalmentItems);
+        when(instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(eq(expected.getRepaymentDay()), consumer)).thenReturn(instalmentItems);
 
         final Bill bill = billCreationService.createBill(consumer, today);
 
-        assertThat(bill.getBillDate(), is(expected.getBillDate()));
+        assertThat(bill.getBillDay(), is(expected.getBillDay()));
         assertThat(bill.getAmount(), is(303));
         assertThat(bill.getItems().size(), is(3));
     }

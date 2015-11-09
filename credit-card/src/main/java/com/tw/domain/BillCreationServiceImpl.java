@@ -19,10 +19,10 @@ public class BillCreationServiceImpl implements BillCreationService {
     @Override
     public Bill createBill(Consumer consumer, Timestamp createdAt) {
         Bill bill = new Bill(createdAt, consumer);
-        Date from = addDay(1, addMonth(-1, new Date(bill.getBillDate().getTime())));
-        Date to = bill.getBillDate();
+        Date from = addDay(1, addMonth(-1, new Date(bill.getBillDay().getTime())));
+        Date to = bill.getBillDay();
         final List<PaymentRequest> payments = paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(from, to, consumer);
-        final List<InstalmentItem> instalments = instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(bill.getRepaymentDate());
+        final List<InstalmentItem> instalments = instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(bill.getRepaymentDay(), consumer);
         List<BillItem> billItems = new ArrayList<>();
         for (PaymentRequest paymentRequest : payments) {
             billItems.add(new BillItem(paymentRequest.getAmount(), ItemType.PAYMENT, bill));

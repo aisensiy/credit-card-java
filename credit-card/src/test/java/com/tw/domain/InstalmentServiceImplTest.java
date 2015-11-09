@@ -22,7 +22,7 @@ public class InstalmentServiceImplTest {
         final InstalmentItem item2 = instalment.getItems().get(1);
         final InstalmentItem item3 = instalment.getItems().get(2);
         assertThat(item1.getCommission(), is((int) (policy.getCommission() * 0.01 * amountPerTerm)));
-        assertThat(item1.getRepaymentDay(), is(bill.getRepaymentDate()));
+        assertThat(item1.getRepaymentDay(), is(bill.getRepaymentDay()));
         assertThat(item2.getRepaymentDay().toString(), is(Date.valueOf("2016-01-03").toString()));
         assertThat(item3.getRepaymentDay().toString(), is(Date.valueOf("2016-02-03").toString()));
     }

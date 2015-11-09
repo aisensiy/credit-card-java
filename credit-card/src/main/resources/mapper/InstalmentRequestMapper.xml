@@ -14,11 +14,7 @@
         <association property="policy" javaType="com.tw.domain.InstalmentPolicy">
             <id property="id" column="policyId" />
         </association>
-        <collection property="items" javaType="com.tw.domain.InstalmentItem">
-            <id property="id" column="ItemId" />
-            <result property="amount" column="ItemAmount" />
-            <result property="commission" column="ItemCommission" />
-            <result property="repaymentDay" column="ItemRepaymentDay" />
+        <collection property="items" javaType="com.tw.domain.InstalmentItem" resultMap="itemMap">
         </collection>
     </resultMap>
     <insert id="createInstalmentRequest" keyProperty="instalmentRequest.id">
@@ -26,7 +22,7 @@
          values (#{instalmentRequest.bill.id}, #{instalmentRequest.policy.id}, #{instalmentRequest.createdAt}, #{instalmentRequest.amount},
           #{instalmentRequest.status})
     </insert>
-    <select id="findInstalmentRequestById" resultMap="instalmentMap">
+    <sql id="requestWithItem">
         select
         a.id,
         a.createdAt,
@@ -35,15 +31,33 @@
         a.policyId,
         a.amount,
         b.id as ItemId,
+        b.consumerId as ItemConsumerId,
         b.amount as ItemAmount,
         b.commission as ItemCommission,
         b.repaymentDay as ItemRepaymentDay
         from instalmentRequests a
          left join instalmentItems b on a.id = b.instalmentRequestId
+    </sql>
+    <select id="findInstalmentRequestById" resultMap="instalmentMap">
+        <include refid="requestWithItem" />
          where a.id = #{id}
     </select>
 
     <update id="updateInstalmentRequest">
         update instalmentRequests set status = #{instalmentRequest.status} where id = #{instalmentRequest.id}
     </update>
+
+    <resultMap id="itemMap" type="com.tw.domain.InstalmentItem">
+        <id property="id" column="ItemId" />
+        <result property="amount" column="ItemAmount" />
+        <result property="commission" column="ItemCommission" />
+        <result property="repaymentDay" column="ItemRepaymentDay" />
+    </resultMap>
+
+    <select id="findInstalmentItemByRepaymentDay" resultMap="itemMap">
+        <include refid="requestWithItem" />
+        where ItemRepaymentDay = #{day}
+        and ItemConsumerId = #{consumer.id}
+        and status = #{status}
+    </select>
 </mapper>

@@ -27,8 +27,8 @@ public class InstalmentRequestRepositoryImpl implements InstalmentRequestReposit
     }
 
     @Override
-    public List<InstalmentItem> findConfirmedInstalmentsByRepaymentDay(Date repaymentDay) {
-        return null;
+    public List<InstalmentItem> findConfirmedInstalmentsByRepaymentDay(Date repaymentDay, Consumer consumer) {
+        return instalmentRequestMapper.findInstalmentItemByRepaymentDay(consumer, repaymentDay, RequestStatus.CONFIRMED);
     }
 
     @Override

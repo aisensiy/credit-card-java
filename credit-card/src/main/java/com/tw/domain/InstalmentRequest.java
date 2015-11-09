@@ -74,7 +74,7 @@ public class InstalmentRequest implements Request, Record {
         for (int i = 0; i < term; i++) {
             int amount = this.amount / term;
             int commission = (int) (0.01 * amount * policy.getCommission());
-            Date repaymentDate = addMonth(i, bill.getRepaymentDate());
+            Date repaymentDate = addMonth(i, bill.getRepaymentDay());
             items.add(new InstalmentItem(amount, commission, repaymentDate, this));
         }
     }

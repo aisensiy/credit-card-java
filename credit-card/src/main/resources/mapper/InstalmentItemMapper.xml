@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tw.mapper.InstalmentItemMapper">
     <insert id="createInstalmentItem" keyProperty="instalmentItem.id">
-        insert into instalmentItems (instalmentRequestId, amount, commission, repaymentDay) VALUES
-        (#{instalmentItem.instalmentRequest.id}, #{instalmentItem.amount}, #{instalmentItem.commission}, #{instalmentItem.repaymentDay})
+        insert into instalmentItems (consumerId, instalmentRequestId, amount, commission, repaymentDay) VALUES
+        (#{instalmentItem.instalmentRequest.bill.consumer.id}, #{instalmentItem.instalmentRequest.id}, #{instalmentItem.amount}, #{instalmentItem.commission}, #{instalmentItem.repaymentDay})
     </insert>
 </mapper>

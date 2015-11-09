@@ -10,8 +10,8 @@ CREATE TABLE bills (
   id integer PRIMARY KEY AUTO_INCREMENT,
   amount integer,
   createdAt timestamp,
-  billDate DATE,
-  repayment DATE,
+  billDay DATE,
+  repaymentDay DATE,
   consumerId integer
 );
 
@@ -50,5 +50,6 @@ CREATE TABLE InstalmentItems (
   instalmentRequestId INTEGER,
   amount integer,
   commission integer,
-  repaymentDay DATE
+  repaymentDay DATE,
+  consumerId integer
 );

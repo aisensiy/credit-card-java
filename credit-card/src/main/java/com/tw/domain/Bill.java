@@ -2,21 +2,18 @@ package com.tw.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
 public class Bill implements Record {
     int id;
     private Timestamp createdAt;
-    private Date billDate;
-    List<BillItem> items;
+    private Date billDay;
+    List<BillItem> items = new ArrayList<>();
     private int amount;
     private Consumer consumer;
-    private Date repaymentDate;
+    private Date repaymentDay;
 
     public Bill(Timestamp createdAt, Consumer consumer) {
         this.createdAt = createdAt;
@@ -41,22 +38,22 @@ public class Bill implements Record {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(createdAt);
         calendar.set(Calendar.DAY_OF_MONTH, billDay);
-        this.billDate = new Date(calendar.getTime().getTime());
+        this.billDay = new Date(calendar.getTime().getTime());
         if (billDay < repaymentDay) {
-            this.repaymentDate = new Date(calendar.getTime().getTime());
+            this.repaymentDay = new Date(calendar.getTime().getTime());
         } else {
             calendar.add(Calendar.MONTH, 1);
         }
         calendar.set(Calendar.DAY_OF_MONTH, repaymentDay);
-        this.repaymentDate = new Date(calendar.getTime().getTime());
+        this.repaymentDay = new Date(calendar.getTime().getTime());
     }
 
     public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public Date getBillDate() {
-        return billDate;
+    public Date getBillDay() {
+        return billDay;
     }
 
     public int getAmount() {
@@ -71,8 +68,8 @@ public class Bill implements Record {
         return consumer;
     }
 
-    public Date getRepaymentDate() {
-        return repaymentDate;
+    public Date getRepaymentDay() {
+        return repaymentDay;
     }
 
     @Override
@@ -80,7 +77,8 @@ public class Bill implements Record {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("amount", amount);
-        map.put("billDate", billDate);
+        map.put("repaymentDay", repaymentDay);
+        map.put("billDay", billDay);
         map.put("items", items.stream().map(BillItem::toJson).collect(toList()));
         return map;
     }

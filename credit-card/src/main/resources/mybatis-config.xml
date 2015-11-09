@@ -18,6 +18,7 @@
     </settings>
     <typeHandlers>
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.tw.domain.RequestStatus"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.tw.domain.ItemType"/>
     </typeHandlers>
     <!-- Continue going here -->
     <environments default="development">

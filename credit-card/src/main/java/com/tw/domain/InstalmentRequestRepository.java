@@ -8,7 +8,7 @@ public interface InstalmentRequestRepository {
 
     void updateInstalmentRequest(InstalmentRequest instalmentRequest);
 
-    List<InstalmentItem> findConfirmedInstalmentsByRepaymentDay(Date repaymentDay);
+    List<InstalmentItem> findConfirmedInstalmentsByRepaymentDay(Date repaymentDay, Consumer consumer);
 
     InstalmentRequest createInstalmentRequest(InstalmentRequest instalmentRequest);
 }

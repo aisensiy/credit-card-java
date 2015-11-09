@@ -11,6 +11,12 @@ public class InstalmentItem implements Record {
     private Date repaymentDay;
     private InstalmentRequest instalmentRequest;
 
+    public Consumer getConsumer() {
+        return consumer;
+    }
+
+    Consumer consumer;
+
     public InstalmentItem(int amount, int commission, Date repaymentDay, InstalmentRequest instalmentRequest) {
         this.amount = amount;
         this.commission = commission;

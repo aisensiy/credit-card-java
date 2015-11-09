@@ -3,5 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tw.mapper.BillItemMapper">
-
+    <insert id="createBillItem" keyProperty="item.id">
+        insert into billItems (amount, billId, itemType) values (#{item.amount}, #{item.bill.id}, #{item.itemType})
+    </insert>
 </mapper>

@@ -39,6 +39,4 @@ public class InstalmentRequestRepositoryImplTest extends RepositoryTestBase {
         instalmentRequest = instalmentRequestRepository.findInstalmentRequestById(instalmentRequest.getId());
         assertThat(instalmentRequest.getStatus(), is(RequestStatus.REJECTED));
     }
-
-
 }

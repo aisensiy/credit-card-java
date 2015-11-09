@@ -4,6 +4,7 @@ import com.tw.api.exception.NotFoundException;
 import com.tw.api.util.Routing;
 import com.tw.domain.Bill;
 import com.tw.domain.BillCreationService;
+import com.tw.domain.BillRepository;
 import com.tw.domain.Consumer;
 
 import javax.ws.rs.POST;

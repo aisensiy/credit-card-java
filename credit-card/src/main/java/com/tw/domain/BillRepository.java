@@ -1,6 +1,4 @@
-package com.tw.api;
-
-import com.tw.domain.Bill;
+package com.tw.domain;
 
 public interface BillRepository {
     Bill createBill(Bill bill);

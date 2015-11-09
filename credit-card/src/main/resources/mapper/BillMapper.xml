@@ -3,4 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tw.mapper.BillMapper">
+    <resultMap id="billMap" type="com.tw.domain.Bill">
+        <id property="id" column="id" />
+        <result property="amount" column="amount" />
+        <result property="billDay" column="billDay" />
+        <result property="repaymentDay" column="repaymentDay" />
+        <result property="createdAt" column="createdAt" />
+        <association property="consumer" javaType="com.tw.domain.Consumer">
+            <id property="id" column="consumerId" />
+        </association>
+        <collection property="items" javaType="com.tw.domain.BillItem">
+            <id property="id" column="ItemId" />
+            <result property="amount" column="ItemAmount" />
+            <result property="itemType" column="ItemType" />
+        </collection>
+    </resultMap>
+    <insert id="createBill" keyProperty="bill.id">
+        insert into bills (amount, billDay, repaymentDay, consumerId, createdAt) values
+        (#{bill.amount}, #{bill.billDay}, #{bill.repaymentDay}, #{bill.consumer.id}, #{bill.createdAt})
+    </insert>
+
+    <select id="findBillById" resultMap="billMap">
+        select
+          a.id,
+          a.amount,
+          a.billDay,
+          a.repaymentDay,
+          a.consumerId,
+          a.createdAt,
+          b.id as ItemId,
+          b.amount as ItemAmount,
+          b.itemType as ItemType
+          from bills a
+          left join billItems b on a.id = b.billId
+          where a.id = #{id}
+    </select>
 </mapper>

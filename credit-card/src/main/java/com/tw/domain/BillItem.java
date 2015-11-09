@@ -15,6 +15,8 @@ public class BillItem implements Record {
         this.bill = bill;
     }
 
+    public BillItem (){}
+
     public int getId() {
         return id;
     }
