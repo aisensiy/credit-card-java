@@ -19,6 +19,9 @@ public class Consumer implements Record {
         this.creditLine = creditLine;
     }
 
+    public Consumer() {
+    }
+
     public int getId() {
         return id;
     }

@@ -38,9 +38,9 @@ public class InstalmentApiTest extends ApiTestBase {
         policy = TestHelper.instalmentPolicy(1, new InstalmentPolicy(3, 1));
         instalmentRequest = TestHelper.instalmentRequest(1, new InstalmentRequest(0, bill, policy));
         createdInstalmentRequest = TestHelper.createdInstalmentRequest(1, new InstalmentRequest(0, bill, policy), asList(
-                new InstalmentItem(100, 1, Date.valueOf("2015-11-01")),
-                new InstalmentItem(100, 1, Date.valueOf("2015-12-01")),
-                new InstalmentItem(100, 1, Date.valueOf("2016-01-01"))
+                new InstalmentItem(100, 1, Date.valueOf("2015-11-01"), instalmentRequest),
+                new InstalmentItem(100, 1, Date.valueOf("2015-12-01"), instalmentRequest),
+                new InstalmentItem(100, 1, Date.valueOf("2016-01-01"), instalmentRequest)
         ));
         when(consumerRepository.findConsumerById(eq(1))).thenReturn(consumer);
         when(billRepository.findBillById(eq(1))).thenReturn(bill);

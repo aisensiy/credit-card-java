@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tw.mapper.ConsumerMapper">
+    <resultMap id="consumerMap" type="com.tw.domain.Consumer">
+        <id property="id" column="consumerId"/>
+        <result property="name" column="consumerName" />
+        <result property="billDay" column="consumerBillDay" />
+        <result property="repaymentDay" column="consumerrepaymentDay" />
+        <result property="creditLine" column="consumerCreditLine" />
+    </resultMap>
+
+    <insert id="createConsumer" keyProperty="consumer.id">
+        insert into consumers (name, billDay, repaymentDay, creditLine)
+        values (#{consumer.name}, #{consumer.billDay}, #{consumer.repaymentDay}, #{consumer.creditLine});
+    </insert>
+
+    <select id="findConsumerById" resultMap="consumerMap">
+        select id as consumerId, name as consumerName, billDay as conumserBillDay, repaymentDay as consumerRepaymentDay, creditLine as consumerCreditLine
+        from consumers where id = #{consumerId}
+    </select>
+
+    <update id="updateConsumer">
+        update consumers set name = #{consumer.name} where id = #{consumer.id}
+    </update>
+</mapper>

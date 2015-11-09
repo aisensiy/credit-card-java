@@ -1,6 +1,7 @@
 package com.tw.domain;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 
 import static com.tw.domain.DateUtil.addMonth;
@@ -12,6 +13,7 @@ public class InstalmentRequest implements Request, Record {
     private Bill bill;
     private final InstalmentPolicy policy;
     private RequestStatus status = RequestStatus.NEW;
+    private Timestamp createdAt;
     List<InstalmentItem> items = new ArrayList<>();
 
     public InstalmentRequest(int amount, Bill bill, InstalmentPolicy policy) {
@@ -50,6 +52,7 @@ public class InstalmentRequest implements Request, Record {
         map.put("status", status);
         map.put("bill", bill.toRefJson());
         map.put("policy", policy.toJson());
+        map.put("createdAt", createdAt);
         map.put("items", items.stream().map(InstalmentItem::toJson).collect(toList()));
         return map;
     }
@@ -69,7 +72,11 @@ public class InstalmentRequest implements Request, Record {
             int amount = this.amount / term;
             int commission = (int) (0.01 * amount * policy.getCommission());
             Date repaymentDate = addMonth(i, bill.getRepaymentDate());
-            items.add(new InstalmentItem(amount, commission, repaymentDate));
+            items.add(new InstalmentItem(amount, commission, repaymentDate, this));
         }
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 }

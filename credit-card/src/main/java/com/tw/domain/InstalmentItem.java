@@ -9,11 +9,13 @@ public class InstalmentItem implements Record {
     private int amount;
     private int commission;
     private Date repaymentDay;
+    private InstalmentRequest instalmentRequest;
 
-    public InstalmentItem(int amount, int commission, Date repaymentDay) {
+    public InstalmentItem(int amount, int commission, Date repaymentDay, InstalmentRequest instalmentRequest) {
         this.amount = amount;
         this.commission = commission;
         this.repaymentDay = repaymentDay;
+        this.instalmentRequest = instalmentRequest;
     }
 
     public int getId() {

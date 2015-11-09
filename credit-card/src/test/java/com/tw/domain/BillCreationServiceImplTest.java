@@ -50,7 +50,7 @@ public class BillCreationServiceImplTest {
         when(paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(eq(from), eq(to))).thenReturn(paymentRequests);
 
         List<InstalmentItem> instalmentItems = asList(
-                new InstalmentItem(100, 3, expected.getRepaymentDate())
+                new InstalmentItem(100, 3, expected.getRepaymentDate(), null)
         );
         when(instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(eq(expected.getRepaymentDate()))).thenReturn(instalmentItems);
 
