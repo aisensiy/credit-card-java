@@ -1,5 +1,5 @@
 package com.tw.domain;
 
-public enum PaymentStatus {
+public enum RequestStatus {
     NEW, CONFIRMED, REJECTED;
 }

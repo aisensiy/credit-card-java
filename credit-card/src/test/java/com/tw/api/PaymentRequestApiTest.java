@@ -2,7 +2,7 @@ package com.tw.api;
 
 import com.tw.domain.Consumer;
 import com.tw.domain.PaymentRequest;
-import com.tw.domain.PaymentStatus;
+import com.tw.domain.RequestStatus;
 import com.tw.domain.TestHelper;
 import org.junit.Test;
 
@@ -58,7 +58,7 @@ public class PaymentRequestApiTest extends ApiTestBase {
 
         final Response response = target("/consumers/1/paymentRequests/1/confirmation").request().post(Entity.form(new Form()));
         assertThat(response.getStatus(), is(204));
-        assertThat(paymentRequest.getStatus(), is(PaymentStatus.CONFIRMED));
+        assertThat(paymentRequest.getStatus(), is(RequestStatus.CONFIRMED));
         verify(paymentRequestRepository).updatePaymentRequest(eq(paymentRequest));
     }
 
@@ -72,7 +72,7 @@ public class PaymentRequestApiTest extends ApiTestBase {
 
         final Response response = target("/consumers/1/paymentRequests/1/rejected").request().post(Entity.form(new Form()));
         assertThat(response.getStatus(), is(204));
-        assertThat(paymentRequest.getStatus(), is(PaymentStatus.REJECTED));
+        assertThat(paymentRequest.getStatus(), is(RequestStatus.REJECTED));
         verify(paymentRequestRepository).updatePaymentRequest(eq(paymentRequest));
     }
 }

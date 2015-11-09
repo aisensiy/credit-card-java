@@ -8,7 +8,7 @@ public class PaymentRequest implements Request, Record {
     int id;
     private Timestamp createdAt;
     private int amount;
-    private PaymentStatus status = PaymentStatus.NEW;
+    private RequestStatus status = RequestStatus.NEW;
     Consumer consumeBy;
 
     public PaymentRequest(int amount, Timestamp createdAt, Consumer consumeBy) {
@@ -35,12 +35,12 @@ public class PaymentRequest implements Request, Record {
 
     @Override
     public void confirm() {
-        status = PaymentStatus.CONFIRMED;
+        status = RequestStatus.CONFIRMED;
     }
 
     @Override
     public void reject() {
-        status = PaymentStatus.REJECTED;
+        status = RequestStatus.REJECTED;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class PaymentRequest implements Request, Record {
         return null;
     }
 
-    public PaymentStatus getStatus() {
+    public RequestStatus getStatus() {
         return status;
     }
 }

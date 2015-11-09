@@ -22,7 +22,7 @@ public class ApiTestBase extends JerseyTest {
     @Mock
     PaymentRequestRepository paymentRequestRepository;
     @Mock
-    InstalmentRequstRepository instalmentRequstRepository;
+    InstalmentRequestRepository instalmentRequestRepository;
     @Mock
     BillRepository billRepository;
     @Mock
@@ -40,7 +40,7 @@ public class ApiTestBase extends JerseyTest {
                             protected void configure() {
                                 bind(consumerRepository).to(ConsumerRepository.class);
                                 bind(paymentRequestRepository).to(PaymentRequestRepository.class);
-                                bind(instalmentRequstRepository).to(InstalmentRequstRepository.class);
+                                bind(instalmentRequestRepository).to(InstalmentRequestRepository.class);
                                 bind(billRepository).to(BillRepository.class);
                                 bind(billCreationService).to(BillCreationService.class);
                                 bind(instalmentPolicyRepository).to(InstalmentPolicyRepository.class);
