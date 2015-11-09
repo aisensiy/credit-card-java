@@ -3,5 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tw.mapper.InstalmentPolicyMapper">
+    <resultMap id="policyMap" type="com.tw.domain.InstalmentPolicy">
+        <id property="id" column="id" />
+        <result property="term" column="term" />
+        <result property="commission" column="commission"/>
+    </resultMap>
+    <insert id="createInstalmentPolicy" keyProperty="policy.id">
+      INSERT into instalmentPolicies (term, commission) values( #{policy.term}, #{policy.commission})
+    </insert>
+    <select id="findInstalmentPolicyById" resultMap="policyMap">
+        select id, term, commission from instalmentPolicies where id = #{policyId}
+    </select>
 
 </mapper>
