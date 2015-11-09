@@ -24,11 +24,12 @@ public class InstalmentRequestsApi {
                                   @Context InstalmentPolicyRepository instalmentPolicyRepository,
                                   @Context InstalmentService instalmentService) {
         final int policyId = Integer.parseInt(form.asMap().getFirst("policyId"));
+        final int amount = Integer.parseInt(form.asMap().getFirst("amount"));
         InstalmentPolicy instalmentPolicy = instalmentPolicyRepository.findInstalmentPolicyById(policyId);
         if (instalmentPolicy == null) {
             return Response.status(400).build();
         }
-        InstalmentRequest instalmentRequest = instalmentService.createInstalment(bill, instalmentPolicy);
+        InstalmentRequest instalmentRequest = instalmentService.createInstalment(amount, bill, instalmentPolicy);
         return Response.created(Routing.instalmentRequest(instalmentRequest)).build();
     }
 

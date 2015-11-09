@@ -20,7 +20,7 @@ public class TestHelper {
     }
 
     public static Bill bill(int id, int amount, Timestamp createdAt, java.sql.Date billDay, Consumer consumer) {
-        Bill bill = new Bill(amount, createdAt, billDay, consumer);
+        Bill bill = new Bill(amount, createdAt, consumer);
         bill.id = id;
         return bill;
     }
@@ -36,7 +36,7 @@ public class TestHelper {
     }
 
     public static Bill billWithItems(int id, int amount, Timestamp createdAt, java.sql.Date billDay, Consumer consumer) {
-        Bill bill = new Bill(amount, createdAt, billDay, consumer);
+        Bill bill = new Bill(amount, createdAt, consumer);
         bill.id = id;
         bill.items = asList(
                 new BillItem(500, ItemType.INSTALMENT, bill),

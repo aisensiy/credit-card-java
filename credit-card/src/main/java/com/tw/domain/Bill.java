@@ -2,6 +2,7 @@ package com.tw.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,27 @@ public class Bill implements Record {
     List<BillItem> items;
     private int amount;
     private Consumer consumer;
+    private Date repaymentDate;
 
-    public Bill(int amount, Timestamp createdAt, Date billDate, Consumer consumer) {
+    public Bill(int amount, Timestamp createdAt, Consumer consumer) {
         this.createdAt = createdAt;
         this.billDate = billDate;
         this.amount = amount;
         this.consumer = consumer;
+
+        final int billDay = consumer.getBillDay();
+        final int repaymentDay = consumer.getRepaymentDay();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(createdAt);
+        calendar.set(Calendar.DAY_OF_MONTH, billDay);
+        this.billDate = new Date(calendar.getTime().getTime());
+        if (billDay < repaymentDay) {
+            this.repaymentDate = new Date(calendar.getTime().getTime());
+        } else {
+            calendar.add(Calendar.MONTH, 1);
+        }
+        calendar.set(Calendar.DAY_OF_MONTH, repaymentDay);
+        this.repaymentDate = new Date(calendar.getTime().getTime());
     }
 
     public Timestamp getCreatedAt() {
@@ -41,6 +57,10 @@ public class Bill implements Record {
 
     public Consumer getConsumer() {
         return consumer;
+    }
+
+    public Date getRepaymentDate() {
+        return repaymentDate;
     }
 
     @Override

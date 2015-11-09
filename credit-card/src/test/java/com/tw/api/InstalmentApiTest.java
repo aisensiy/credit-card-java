@@ -17,6 +17,7 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -35,8 +36,8 @@ public class InstalmentApiTest extends ApiTestBase {
         consumer = TestHelper.consumer(1, "name");
         bill = TestHelper.bill(1, 900, new Timestamp(1447040446924L), Date.valueOf("2015-11-09"), consumer);
         policy = TestHelper.instalmentPolicy(1, new InstalmentPolicy(3, 1));
-        instalmentRequest = TestHelper.instalmentRequest(1, new InstalmentRequest(bill, policy));
-        createdInstalmentRequest = TestHelper.createdInstalmentRequest(1, new InstalmentRequest(bill, policy), asList(
+        instalmentRequest = TestHelper.instalmentRequest(1, new InstalmentRequest(0, bill, policy));
+        createdInstalmentRequest = TestHelper.createdInstalmentRequest(1, new InstalmentRequest(0, bill, policy), asList(
                 new InstalmentItem(100, 1, Date.valueOf("2015-11-01")),
                 new InstalmentItem(100, 1, Date.valueOf("2015-12-01")),
                 new InstalmentItem(100, 1, Date.valueOf("2016-01-01"))
@@ -49,10 +50,11 @@ public class InstalmentApiTest extends ApiTestBase {
     @Test
     public void should_create_instalment_request() throws Exception {
 
-        when(instalmentService.createInstalment(eq(bill), eq(policy))).thenReturn(instalmentRequest);
+        when(instalmentService.createInstalment(anyInt(), eq(bill), eq(policy))).thenReturn(instalmentRequest);
 
         MultivaluedMap<String, String> map = new MultivaluedHashMap<>();
         map.putSingle("policyId", "1");
+        map.putSingle("amount", "100");
         final Response response = target("/consumers/1/bills/1/instalmentRequests").request().post(Entity.form(new Form(map)));
         assertThat(response.getStatus(), is(201));
     }

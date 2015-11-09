@@ -1,5 +1,5 @@
 package com.tw.domain;
 
 public interface InstalmentService {
-    InstalmentRequest createInstalment(Bill bill, InstalmentPolicy policy);
+    InstalmentRequest createInstalment(int amount, Bill bill, InstalmentPolicy policy);
 }
