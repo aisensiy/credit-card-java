@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
 
 public class BillsApi {
     private Consumer consumer;
@@ -23,7 +24,7 @@ public class BillsApi {
     @POST
     public Response createBill(@Context BillCreationService billCreationService,
                                @Context BillRepository billRepository) {
-        Bill bill = billCreationService.createBill(consumer);
+        Bill bill = billCreationService.createBill(consumer, new Timestamp(1L));
         if (bill == null) {
             return Response.status(400).build();
         }

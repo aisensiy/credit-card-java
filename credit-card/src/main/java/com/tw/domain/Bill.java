@@ -18,12 +18,21 @@ public class Bill implements Record {
     private Consumer consumer;
     private Date repaymentDate;
 
+    public Bill(Timestamp createdAt, Consumer consumer) {
+        this.createdAt = createdAt;
+        this.consumer = consumer;
+        initBillDayAndRepaymentDay(createdAt, consumer);
+    }
+
     public Bill(int amount, Timestamp createdAt, Consumer consumer) {
         this.createdAt = createdAt;
-        this.billDate = billDate;
         this.amount = amount;
         this.consumer = consumer;
 
+        initBillDayAndRepaymentDay(createdAt, consumer);
+    }
+
+    private void initBillDayAndRepaymentDay(Timestamp createdAt, Consumer consumer) {
         final int billDay = consumer.getBillDay();
         final int repaymentDay = consumer.getRepaymentDay();
         Calendar calendar = Calendar.getInstance();
@@ -76,5 +85,16 @@ public class Bill implements Record {
     @Override
     public Map<String, Object> toRefJson() {
         return null;
+    }
+
+    public List<BillItem> getItems() {
+        return items;
+    }
+
+    public void setBillItems(List<BillItem> billItems) {
+        this.amount = 0;
+        for (BillItem billItem : billItems)
+            this.amount += billItem.getAmount();
+        this.items = billItems;
     }
 }

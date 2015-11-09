@@ -3,6 +3,7 @@ package com.tw.domain;
 import java.sql.Date;
 import java.util.*;
 
+import static com.tw.domain.DateUtil.addMonth;
 import static java.util.stream.Collectors.toList;
 
 public class InstalmentRequest implements Request, Record {
@@ -70,12 +71,5 @@ public class InstalmentRequest implements Request, Record {
             Date repaymentDate = addMonth(i, bill.getRepaymentDate());
             items.add(new InstalmentItem(amount, commission, repaymentDate));
         }
-    }
-
-    private Date addMonth(int month, Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MONTH, month);
-        return new Date(calendar.getTime().getTime());
     }
 }

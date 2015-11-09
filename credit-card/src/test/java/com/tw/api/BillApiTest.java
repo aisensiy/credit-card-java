@@ -35,7 +35,7 @@ public class BillApiTest extends ApiTestBase {
 
     @Test
     public void should_create_new_bill() throws Exception {
-        when(billCreationService.createBill(eq(consumer))).thenReturn(bill);
+        when(billCreationService.createBill(eq(consumer), new Timestamp(1L))).thenReturn(bill);
         when(billRepository.createBill(eq(bill))).thenReturn(bill);
 
         final Response response = target("/consumers/1/bills").request().post(Entity.form(new Form()));
@@ -59,7 +59,7 @@ public class BillApiTest extends ApiTestBase {
     public void should_fail_to_create_new_bill() throws Exception {
         final Consumer consumer = TestHelper.consumer(1, "name");
         when(consumerRepository.findConsumerById(eq(1))).thenReturn(consumer);
-        when(billCreationService.createBill(eq(consumer))).thenReturn(null);
+        when(billCreationService.createBill(eq(consumer), new Timestamp(1L))).thenReturn(null);
 
         final Response response = target("/consumers/1/bills").request().post(Entity.form(new Form()));
         assertThat(response.getStatus(), is(400));
