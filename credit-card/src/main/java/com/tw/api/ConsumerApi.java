@@ -5,6 +5,7 @@ import com.tw.domain.ConsumerRepository;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Form;
@@ -30,5 +31,10 @@ public class ConsumerApi {
                                    @Context ConsumerRepository consumerRepository) {
         consumerRepository.updateConsumer(consumer.getId(), form.asMap());
         return Response.noContent().build();
+    }
+
+    @Path("paymentRequests")
+    public PaymentRequestsApi getPaymentRequestsApi() {
+        return new PaymentRequestsApi(consumer);
     }
 }
