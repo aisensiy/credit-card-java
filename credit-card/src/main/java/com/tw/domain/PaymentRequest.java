@@ -34,7 +34,7 @@ public class PaymentRequest implements Request, Record {
     }
 
     @Override
-    public void approve() {
+    public void confirm() {
         status = PaymentStatus.CONFIRMED;
     }
 
@@ -57,5 +57,9 @@ public class PaymentRequest implements Request, Record {
     @Override
     public Map<String, Object> toRefJson() {
         return null;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
     }
 }

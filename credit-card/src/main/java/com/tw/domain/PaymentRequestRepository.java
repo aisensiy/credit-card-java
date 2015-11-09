@@ -6,4 +6,6 @@ public interface PaymentRequestRepository {
     PaymentRequest createPaymentRequest(Consumer consumer, MultivaluedMap<String, String> map);
 
     PaymentRequest findPaymentRequestById(int paymentRequestId);
+
+    PaymentRequest updatePaymentRequest(PaymentRequest paymentRequest);
 }

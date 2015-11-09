@@ -2,6 +2,7 @@ package com.tw.api;
 
 import com.tw.domain.Consumer;
 import com.tw.domain.PaymentRequest;
+import com.tw.domain.PaymentStatus;
 import com.tw.domain.TestHelper;
 import org.junit.Test;
 
@@ -44,5 +45,18 @@ public class PaymentRequestApiTest extends ApiTestBase {
         assertThat(map.get("status"), is("NEW"));
         Map consumeby = (Map) map.get("consumer");
         assertThat((String) consumeby.get("uri"), endsWith("/consumers/1"));
+    }
+
+    @Test
+    public void should_approve_request() throws Exception {
+        final Consumer consumer = TestHelper.consumer(1, "name");
+        PaymentRequest paymentRequest = TestHelper.paymentRequest(1, 100, consumer);
+        when(paymentRequestRepository.findPaymentRequestById(eq(1))).thenReturn(paymentRequest);
+        when(consumerRepository.findConsumerById(eq(1))).thenReturn(consumer);
+        when(paymentRequestRepository.updatePaymentRequest(paymentRequest)).thenReturn(paymentRequest);
+
+        final Response response = target("/consumers/1/paymentRequests/1/confirmation").request().post(Entity.form(new Form()));
+        assertThat(response.getStatus(), is(204));
+        assertThat(paymentRequest.getStatus(), is(PaymentStatus.CONFIRMED));
     }
 }

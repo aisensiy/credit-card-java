@@ -3,6 +3,8 @@ package com.tw.api;
 import com.tw.domain.PaymentRequest;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,5 +21,12 @@ public class PaymentRequestApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPaymentRequest() {
         return Response.ok().entity(paymentRequest.toJson()).build();
+    }
+
+    @POST
+    @Path("/confirmation")
+    public Response confirmed() {
+        paymentRequest.confirm();
+        return Response.noContent().build();
     }
 }
