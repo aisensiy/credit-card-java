@@ -2,9 +2,13 @@ package com.tw.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Bill {
+import static java.util.stream.Collectors.toList;
+
+public class Bill implements Record {
     int id;
     private Timestamp createdAt;
     private Date billDate;
@@ -37,5 +41,20 @@ public class Bill {
 
     public Consumer getConsumer() {
         return consumer;
+    }
+
+    @Override
+    public Map<String, Object> toJson() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("amount", amount);
+        map.put("billDate", billDate);
+        map.put("items", items.stream().map(BillItem::toJson).collect(toList()));
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> toRefJson() {
+        return null;
     }
 }
