@@ -11,5 +11,5 @@ public interface PaymentRequestRepository {
 
     PaymentRequest updatePaymentRequest(PaymentRequest paymentRequest);
 
-    List<PaymentRequest> findConfirmedPaymentRequestsByDateRange(Date from, Date to);
+    List<PaymentRequest> findConfirmedPaymentRequestsByDateRange(Date from, Date to, Consumer consumer);
 }

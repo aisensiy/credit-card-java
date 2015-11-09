@@ -3,4 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tw.mapper.PaymentRequestMapper">
+    <resultMap id="paymentRequestMap" type="com.tw.domain.PaymentRequest">
+        <id property="id" column="id" />
+        <result property="amount" column="amount" />
+        <result property="createdAt" column="createdAt" />
+        <result property="status" column="status" />
+        <association property="consumeBy" javaType="com.tw.domain.Consumer">
+            <id property="id" column="consumeBy" />
+        </association>
+    </resultMap>
+    <insert id="createPaymentRequest" keyProperty="request.id">
+        insert into paymentRequests (amount, createdAt, consumeBy, status) values
+        (#{request.amount}, #{request.createdAt}, #{request.consumeBy.id}, #{request.status})
+    </insert>
+
+    <select id="findPaymentRequestById" resultMap="paymentRequestMap">
+        <include refid="findRequest" />
+        where id = #{paymentRequestId}
+    </select>
+
+    <sql id="findRequest">
+        select id, amount, createdAt, consumeBy, status from paymentRequests
+    </sql>
+
+    <select id="findRequestsByRange" resultMap="paymentRequestMap">
+        <include refid="findRequest" />
+        where consumeBy = #{consumer.id}
+        and status = #{status}
+        and createdAt >= #{from} and createdAt <![CDATA[ <= #{to} ]]>
+    </select>
+
+    <update id="updatePaymentRequest">
+        update paymentRequests set status = #{request.status} where id = #{request.id}
+    </update>
 </mapper>

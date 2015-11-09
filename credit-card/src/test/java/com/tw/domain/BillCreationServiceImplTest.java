@@ -47,7 +47,7 @@ public class BillCreationServiceImplTest {
                 TestHelper.paymentRequest(1, 100, consumer),
                 TestHelper.paymentRequest(2, 100, consumer)
         );
-        when(paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(eq(from), eq(to))).thenReturn(paymentRequests);
+        when(paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(eq(from), eq(to), consumer)).thenReturn(paymentRequests);
 
         List<InstalmentItem> instalmentItems = asList(
                 new InstalmentItem(100, 3, expected.getRepaymentDate(), null)

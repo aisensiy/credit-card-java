@@ -16,7 +16,9 @@
          as some drivers deny compatibility but still work -->
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
-
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.tw.domain.RequestStatus"/>
+    </typeHandlers>
     <!-- Continue going here -->
     <environments default="development">
         <environment id="development">

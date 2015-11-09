@@ -11,6 +11,9 @@ public class PaymentRequest implements Request, Record {
     private RequestStatus status = RequestStatus.NEW;
     Consumer consumeBy;
 
+    public PaymentRequest() {
+    }
+
     public PaymentRequest(int amount, Timestamp createdAt, Consumer consumeBy) {
         this.createdAt = createdAt;
         this.amount = amount;

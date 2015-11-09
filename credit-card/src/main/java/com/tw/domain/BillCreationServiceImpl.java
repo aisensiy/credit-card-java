@@ -21,7 +21,7 @@ public class BillCreationServiceImpl implements BillCreationService {
         Bill bill = new Bill(createdAt, consumer);
         Date from = addDay(1, addMonth(-1, new Date(bill.getBillDate().getTime())));
         Date to = bill.getBillDate();
-        final List<PaymentRequest> payments = paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(from, to);
+        final List<PaymentRequest> payments = paymentRequestRepository.findConfirmedPaymentRequestsByDateRange(from, to, consumer);
         final List<InstalmentItem> instalments = instalmentRequestRepository.findConfirmedInstalmentsByRepaymentDay(bill.getRepaymentDate());
         List<BillItem> billItems = new ArrayList<>();
         for (PaymentRequest paymentRequest : payments) {
