@@ -24,7 +24,6 @@ public class ConsumerApiTest extends ApiTestBase {
     public void should_create_consumer() throws Exception {
         final Form form = new Form();
         Consumer consumer = TestHelper.consumer(1, "name");
-        when(consumer.getId()).thenReturn(1);
         when(consumerRepository.createConsumer(eq(form.asMap()))).thenReturn(consumer);
         final Response response = target("/consumers").request().post(Entity.form(form));
         assertThat(response.getStatus(), is(201));

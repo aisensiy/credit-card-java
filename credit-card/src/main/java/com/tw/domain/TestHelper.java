@@ -2,6 +2,7 @@ package com.tw.domain;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -42,5 +43,11 @@ public class TestHelper {
                 new BillItem(500, ItemType.PAYMENT, bill)
         );
         return bill;
+    }
+
+    public static InstalmentRequest createdInstalmentRequest(int id, InstalmentRequest instalmentRequest, List<InstalmentItem> instalmentItems) {
+        instalmentRequest.id = id;
+        instalmentRequest.items = instalmentItems;
+        return instalmentRequest;
     }
 }
