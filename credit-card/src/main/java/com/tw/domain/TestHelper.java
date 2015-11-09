@@ -15,4 +15,10 @@ public class TestHelper {
         paymentRequest.id = id;
         return paymentRequest;
     }
+
+    public static Bill bill(int id, int amount, Timestamp createdAt, java.sql.Date billDay, Consumer consumer) {
+        Bill bill = new Bill(amount, createdAt, billDay, consumer);
+        bill.id = id;
+        return bill;
+    }
 }

@@ -1,5 +1,6 @@
 package com.tw.api.util;
 
+import com.tw.domain.Bill;
 import com.tw.domain.Consumer;
 import com.tw.domain.PaymentRequest;
 
@@ -15,5 +16,10 @@ public class Routing {
     public static URI paymentRequest(PaymentRequest paymentRequest) {
         return fromUri("/consumers/{consumerId}/paymentRequests/{paymentRequestId}")
                 .build(paymentRequest.getConsumeBy().getId(), paymentRequest.getId());
+    }
+
+    public static URI bill(Bill bill) {
+        return fromUri("/consumers/{consumerId}/bills/{billId}")
+                .build(bill.getConsumer().getId(), bill.getId());
     }
 }

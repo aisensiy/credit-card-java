@@ -37,4 +37,9 @@ public class ConsumerApi {
     public PaymentRequestsApi getPaymentRequestsApi() {
         return new PaymentRequestsApi(consumer);
     }
+
+    @Path("bills")
+    public BillsApi getBillsApi() {
+        return new BillsApi(consumer);
+    }
 }
