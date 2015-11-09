@@ -15,7 +15,7 @@
   sudo: yes
   vars:
     mysql_db:
-         - name: fixed_assets
+         - name: credit_card
            replicate: no
 
     mysql_users:

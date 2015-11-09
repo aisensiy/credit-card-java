@@ -26,7 +26,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3307/credit_card"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/credit_card"/>
                 <property name="username" value="mysql"/>
                 <property name="password" value="mysql"/>
             </dataSource>
@@ -35,7 +35,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3307/credit_card"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/credit_card"/>
                 <property name="username" value="mysql"/>
                 <property name="password" value="mysql"/>
             </dataSource>
