@@ -16,6 +16,8 @@ import javax.ws.rs.core.Application;
 @RunWith(MockitoJUnitRunner.class)
 public class ApiTestBase extends JerseyTest {
     @Mock
+    protected InstalmentService instalmentService;
+    @Mock
     ConsumerRepository consumerRepository;
     @Mock
     PaymentRequestRepository paymentRequestRepository;
@@ -42,6 +44,7 @@ public class ApiTestBase extends JerseyTest {
                                 bind(billRepository).to(BillRepository.class);
                                 bind(billCreationService).to(BillCreationService.class);
                                 bind(instalmentPolicyRepository).to(InstalmentPolicyRepository.class);
+                                bind(instalmentService).to(InstalmentService.class);
                             }
                         }
                 );

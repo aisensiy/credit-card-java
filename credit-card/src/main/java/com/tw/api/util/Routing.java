@@ -1,9 +1,6 @@
 package com.tw.api.util;
 
-import com.tw.domain.Bill;
-import com.tw.domain.Consumer;
-import com.tw.domain.InstalmentPolicy;
-import com.tw.domain.PaymentRequest;
+import com.tw.domain.*;
 
 import java.net.URI;
 
@@ -26,5 +23,12 @@ public class Routing {
 
     public static URI instalmentPolicy(InstalmentPolicy instalmentPolicy) {
         return fromUri("/instalmentPolicies/{id}").build(instalmentPolicy.getId());
+    }
+
+    public static URI instalmentRequest(InstalmentRequest instalmentRequest) {
+        return fromUri("/consumers/{consumerId}/bills/{billId}")
+                .build(instalmentRequest.getBill().getConsumer().getId(),
+                        instalmentRequest.getBill().getId(),
+                        instalmentRequest.getId());
     }
 }

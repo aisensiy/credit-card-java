@@ -26,4 +26,9 @@ public class TestHelper {
         instalmentPolicy.id = id;
         return instalmentPolicy;
     }
+
+    public static InstalmentRequest instalmentRequest(int id, InstalmentRequest instalmentRequest) {
+        instalmentRequest.id = id;
+        return instalmentRequest;
+    }
 }
