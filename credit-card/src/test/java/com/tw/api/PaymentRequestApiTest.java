@@ -16,6 +16,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class PaymentRequestApiTest extends ApiTestBase {
@@ -48,7 +49,7 @@ public class PaymentRequestApiTest extends ApiTestBase {
     }
 
     @Test
-    public void should_approve_request() throws Exception {
+    public void should_confirm_request() throws Exception {
         final Consumer consumer = TestHelper.consumer(1, "name");
         PaymentRequest paymentRequest = TestHelper.paymentRequest(1, 100, consumer);
         when(paymentRequestRepository.findPaymentRequestById(eq(1))).thenReturn(paymentRequest);
@@ -58,5 +59,20 @@ public class PaymentRequestApiTest extends ApiTestBase {
         final Response response = target("/consumers/1/paymentRequests/1/confirmation").request().post(Entity.form(new Form()));
         assertThat(response.getStatus(), is(204));
         assertThat(paymentRequest.getStatus(), is(PaymentStatus.CONFIRMED));
+        verify(paymentRequestRepository).updatePaymentRequest(eq(paymentRequest));
+    }
+
+    @Test
+    public void should_reject_request() throws Exception {
+        final Consumer consumer = TestHelper.consumer(1, "name");
+        PaymentRequest paymentRequest = TestHelper.paymentRequest(1, 100, consumer);
+        when(paymentRequestRepository.findPaymentRequestById(eq(1))).thenReturn(paymentRequest);
+        when(consumerRepository.findConsumerById(eq(1))).thenReturn(consumer);
+        when(paymentRequestRepository.updatePaymentRequest(paymentRequest)).thenReturn(paymentRequest);
+
+        final Response response = target("/consumers/1/paymentRequests/1/rejected").request().post(Entity.form(new Form()));
+        assertThat(response.getStatus(), is(204));
+        assertThat(paymentRequest.getStatus(), is(PaymentStatus.REJECTED));
+        verify(paymentRequestRepository).updatePaymentRequest(eq(paymentRequest));
     }
 }
