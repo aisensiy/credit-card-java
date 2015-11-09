@@ -1,5 +1,7 @@
 package com.tw.domain;
 
+import com.tw.api.util.Routing;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +52,9 @@ public class Consumer implements Record {
 
     @Override
     public Map<String, Object> toRefJson() {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("uri", Routing.consumer(this));
+        return map;
     }
 }
