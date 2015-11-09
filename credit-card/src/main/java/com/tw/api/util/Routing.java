@@ -2,6 +2,7 @@ package com.tw.api.util;
 
 import com.tw.domain.Bill;
 import com.tw.domain.Consumer;
+import com.tw.domain.InstalmentPolicy;
 import com.tw.domain.PaymentRequest;
 
 import java.net.URI;
@@ -21,5 +22,9 @@ public class Routing {
     public static URI bill(Bill bill) {
         return fromUri("/consumers/{consumerId}/bills/{billId}")
                 .build(bill.getConsumer().getId(), bill.getId());
+    }
+
+    public static URI instalmentPolicy(InstalmentPolicy instalmentPolicy) {
+        return fromUri("/instalmentPolicies/{id}").build(instalmentPolicy.getId());
     }
 }

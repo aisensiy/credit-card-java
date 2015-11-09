@@ -19,6 +19,9 @@ public class BillsApi {
     public Response createBill(@Context BillCreationService billCreationService,
                                @Context BillRepository billRepository) {
         Bill bill = billCreationService.createBill(consumer);
+        if (bill == null) {
+            return Response.status(400).build();
+        }
         bill = billRepository.createBill(bill);
         return Response.created(Routing.bill(bill)).build();
     }

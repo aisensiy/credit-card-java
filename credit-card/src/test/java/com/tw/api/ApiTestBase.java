@@ -1,10 +1,7 @@
 package com.tw.api;
 
 import com.tw.api.exception.NotFoundException;
-import com.tw.domain.BillCreationService;
-import com.tw.domain.ConsumerRepository;
-import com.tw.domain.InstalmentRequstRepository;
-import com.tw.domain.PaymentRequestRepository;
+import com.tw.domain.*;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
@@ -28,6 +25,8 @@ public class ApiTestBase extends JerseyTest {
     BillRepository billRepository;
     @Mock
     BillCreationService billCreationService;
+    @Mock
+    InstalmentPolicyRepository instalmentPolicyRepository;
 
     @Override
     protected Application configure() {
@@ -42,6 +41,7 @@ public class ApiTestBase extends JerseyTest {
                                 bind(instalmentRequstRepository).to(InstalmentRequstRepository.class);
                                 bind(billRepository).to(BillRepository.class);
                                 bind(billCreationService).to(BillCreationService.class);
+                                bind(instalmentPolicyRepository).to(InstalmentPolicyRepository.class);
                             }
                         }
                 );

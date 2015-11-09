@@ -21,4 +21,9 @@ public class TestHelper {
         bill.id = id;
         return bill;
     }
+
+    public static InstalmentPolicy instalmentPolicy(int id, InstalmentPolicy instalmentPolicy) {
+        instalmentPolicy.id = id;
+        return instalmentPolicy;
+    }
 }
