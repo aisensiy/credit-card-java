@@ -11,10 +11,13 @@ public class InstalmentRequest implements Request, Record {
     int id;
     private int amount;
     private Bill bill;
-    private final InstalmentPolicy policy;
+    private InstalmentPolicy policy;
     private RequestStatus status = RequestStatus.NEW;
-    private Timestamp createdAt;
+    private Timestamp createdAt = new Timestamp(new java.util.Date().getTime());
     List<InstalmentItem> items = new ArrayList<>();
+
+    public InstalmentRequest() {
+    }
 
     public InstalmentRequest(int amount, Bill bill, InstalmentPolicy policy) {
         this.amount = amount;

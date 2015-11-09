@@ -9,4 +9,6 @@ public interface InstalmentRequestRepository {
     void updateInstalmentRequest(InstalmentRequest instalmentRequest);
 
     List<InstalmentItem> findConfirmedInstalmentsByRepaymentDay(Date repaymentDay);
+
+    InstalmentRequest createInstalmentRequest(InstalmentRequest instalmentRequest);
 }

@@ -13,7 +13,7 @@ public class InstalmentServiceImplTest {
     public void should_create_stalmentItems() throws Exception {
         final InstalmentServiceImpl instalmentService = new InstalmentServiceImpl();
         Consumer consumer = TestHelper.consumer(1, "name");
-        Bill bill = TestHelper.bill(1, 900, new Timestamp(1447048827122L), Date.valueOf("2015-11-15"), consumer);
+        Bill bill = TestHelper.bill(1, 900, new Timestamp(1447048827122L), consumer);
         InstalmentPolicy policy = new InstalmentPolicy(3, 1);
         final InstalmentRequest instalment = instalmentService.createInstalment(900, bill, policy);
         assertThat(instalment.getItems().size(), is(policy.getTerm()));

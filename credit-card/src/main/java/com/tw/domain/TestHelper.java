@@ -19,7 +19,7 @@ public class TestHelper {
         return paymentRequest;
     }
 
-    public static Bill bill(int id, int amount, Timestamp createdAt, java.sql.Date billDay, Consumer consumer) {
+    public static Bill bill(int id, int amount, Timestamp createdAt, Consumer consumer) {
         Bill bill = new Bill(amount, createdAt, consumer);
         bill.id = id;
         return bill;

@@ -34,6 +34,13 @@ public class InstalmentItem implements Record {
         return repaymentDay;
     }
 
+    public InstalmentRequest getInstalmentRequest() {
+        return instalmentRequest;
+    }
+
+    public InstalmentItem() {
+    }
+
     @Override
     public Map<String, Object> toJson() {
         Map<String, Object> map = new HashMap<>();

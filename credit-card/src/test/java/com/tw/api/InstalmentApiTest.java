@@ -34,7 +34,7 @@ public class InstalmentApiTest extends ApiTestBase {
     public void setUp() throws Exception {
         super.setUp();
         consumer = TestHelper.consumer(1, "name");
-        bill = TestHelper.bill(1, 900, new Timestamp(1447040446924L), Date.valueOf("2015-11-09"), consumer);
+        bill = TestHelper.bill(1, 900, new Timestamp(1447040446924L), consumer);
         policy = TestHelper.instalmentPolicy(1, new InstalmentPolicy(3, 1));
         instalmentRequest = TestHelper.instalmentRequest(1, new InstalmentRequest(0, bill, policy));
         createdInstalmentRequest = TestHelper.createdInstalmentRequest(1, new InstalmentRequest(0, bill, policy), asList(

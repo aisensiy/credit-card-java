@@ -24,6 +24,9 @@ public class Bill implements Record {
         initBillDayAndRepaymentDay(createdAt, consumer);
     }
 
+    public Bill() {
+    }
+
     public Bill(int amount, Timestamp createdAt, Consumer consumer) {
         this.createdAt = createdAt;
         this.amount = amount;

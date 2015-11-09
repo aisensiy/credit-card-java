@@ -24,6 +24,9 @@ public class InstalmentPolicy implements Record {
         return commission;
     }
 
+    public InstalmentPolicy() {
+    }
+
     @Override
     public Map<String, Object> toJson() {
         return null;
